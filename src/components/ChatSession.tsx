@@ -15,7 +15,6 @@ const ChatSession: React.FC<{ }> = () => {
     }, [sessionId]);
 
     const handleUpdateMessages = (updatedMessages: { role: string; content: string }[]) => {
-        console.log(' handleUpdateMessages: ', updatedMessages)
         // Update the session messages
         const updatedSession = { ...session, messages: updatedMessages } as ChatSessionType;
         setSession(updatedSession);

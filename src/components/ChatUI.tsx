@@ -14,7 +14,6 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
     const [model, setModel] = useState(session?.model || 'gpt-4o');
 
     useEffect(() => {
-        console.log('session: ', session);
         setMessages(session?.messages || []);
         setAiService(session?.aiService || 'OpenAI');
         setModel(session?.model || 'gpt-4o');
@@ -37,9 +36,6 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
       };
 
       const handleModelChange = (newModel: string) => {
-        console.log('handleModelChange: ', newModel);
-        console.log(session);
-
         setModel(newModel);
     
         if (session) {
@@ -55,8 +51,8 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
       };
 
     const handleAIResponse = async (message: string) => {
-        setIsTyping(true); // Indicate that the AI is typing
-        let aiResponse = ''; // Variable to accumulate the response
+        setIsTyping(true); 
+        let aiResponse = ''; 
 
         // Add an empty AI message to the chat (which we'll update as we get the response)
         setMessages((prevMessages) => [...prevMessages, { role: 'ai', content: '' }]);
@@ -67,12 +63,12 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
         //Typing effect logic
         for (let i = 0; i < fullResponse.length; i++) {
             aiResponse += fullResponse[i];
-        setMessages((prev) => [...prev.slice(0, -1), { role: 'ai', content: aiResponse }]); // Update AI message as it types
+        setMessages((prev) => [...prev.slice(0, -1), { role: 'ai', content: aiResponse }]); 
 
         await new Promise((resolve) => setTimeout(resolve, 50)); // Simulate typing delay
         }
        
-        setIsTyping(false); // Typing is done
+        setIsTyping(false); 
         return fullResponse;
     };
 

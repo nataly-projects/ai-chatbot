@@ -1,50 +1,44 @@
-# React + TypeScript + Vite
+# AI Chatbot Application
+This project is an AI Chatbot application that allows users to interact with conversational AI models from multiple AI services, such as OpenAI and Anthropic. The chatbot supports conversation context, streaming responses, multi-session chat management, and automatic session saving.
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## Features
+ - Multi-Session Management: Users can start new chat sessions, continue existing ones, and switch between them. Each chat session is saved and can be reloaded when the user revisits the application.
+ - AI Chat Integration: The application integrates with both OpenAI and Anthropic APIs, allowing users to toggle between AI services and select different models.
+ - Conversation Context: The bot can remember previous inputs, allowing for conversational context to be maintained across interactions.
+ - Streaming Responses: AI responses are displayed incrementally, simulating a "typing" effect, rather than arriving all at once.
+ - Session Auto-Save: The application automatically saves each session to local storage, allowing users to resume previous sessions after refreshing the browser.
+ - Dynamic Model Selection: Based on the selected AI service (OpenAI or Anthropic), the model dropdown dynamically updates with the available models for that service.
 
-Currently, two official plugins are available:
+## Summary of the Approach
+The application is built with React and TypeScript, using Material UI for the user interface. It leverages the flexibility of React components and hooks to manage state, API calls, and the chatbot’s conversation flow.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+React Hooks: The project makes extensive use of hooks such as useState, useEffect, and useCallback to handle the state of the messages, the current AI service, and the chatbot session.
+Local Storage: The application uses the browser’s local storage to save sessions. This allows users to reload the application and continue previous chats.
+Multi-API Support: The chatbot is capable of switching between multiple AI services (OpenAI and Anthropic) and their respective models, using a dynamic dropdown for model selection.
+Streaming Response Handling: For each user message, a streaming AI response is fetched from the API, and the response is displayed gradually to simulate a typing effect.
+Component-Based Architecture: The UI is split into reusable components such as ChatUI, ServiceToggle, and SessionList. Each component is designed to be modular and easy to extend.
 
-## Expanding the ESLint configuration
+## Running the Project
+### Prerequisites
+Before running the project, ensure you have the following tools installed:
 
-If you are developing a production application, we recommend updating the configuration to enable type aware lint rules:
+Node.js
+npm: Comes with Node.js
 
-- Configure the top-level `parserOptions` property like this:
+### Instructions
+Clone the repository:
 
-```js
-export default tseslint.config({
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+git clone https://github.com/your-username/ai-chatbot.git
+Navigate into the project directory:
 
-- Replace `tseslint.configs.recommended` to `tseslint.configs.recommendedTypeChecked` or `tseslint.configs.strictTypeChecked`
-- Optionally add `...tseslint.configs.stylisticTypeChecked`
-- Install [eslint-plugin-react](https://github.com/jsx-eslint/eslint-plugin-react) and update the config:
+cd ai-chatbot
+Install dependencies:
 
-```js
-// eslint.config.js
-import react from 'eslint-plugin-react'
+npm install
+Create an .env file in the root directory and add the API keys for OpenAI and Anthropic:
 
-export default tseslint.config({
-  // Set the react version
-  settings: { react: { version: '18.3' } },
-  plugins: {
-    // Add the react plugin
-    react,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended rules
-    ...react.configs.recommended.rules,
-    ...react.configs['jsx-runtime'].rules,
-  },
-})
-```
+VITE_OPENAI_API_KEY=your_openai_api_key
+VITE_ANTHROPIC_API_KEY=your_anthropic_api_key
+Start the development server:
+
+npm run dev
