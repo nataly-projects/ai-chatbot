@@ -12,11 +12,11 @@ This project is an AI Chatbot application that allows users to interact with con
 ## Summary of the Approach
 The application is built with React and TypeScript, using Material UI for the user interface. It leverages the flexibility of React components and hooks to manage state, API calls, and the chatbot’s conversation flow.
 
-React Hooks: The project makes extensive use of hooks such as useState, useEffect, and useCallback to handle the state of the messages, the current AI service, and the chatbot session.
-Local Storage: The application uses the browser’s local storage to save sessions. This allows users to reload the application and continue previous chats.
-Multi-API Support: The chatbot is capable of switching between multiple AI services (OpenAI and Anthropic) and their respective models, using a dynamic dropdown for model selection.
-Streaming Response Handling: For each user message, a streaming AI response is fetched from the API, and the response is displayed gradually to simulate a typing effect.
-Component-Based Architecture: The UI is split into reusable components such as ChatUI, ServiceToggle, and SessionList. Each component is designed to be modular and easy to extend.
+ - React Hooks: The project makes extensive use of hooks such as useState, useEffect, and useCallback to handle the state of the messages, the current AI service, and the chatbot session.
+ - Local Storage: The application uses the browser’s local storage to save sessions. This allows users to reload the application and continue previous chats.
+ - Multi-API Support: The chatbot is capable of switching between multiple AI services (OpenAI and Anthropic) and their respective models, using a dynamic dropdown for model selection.
+ - Streaming Response Handling: For each user message, a streaming AI response is fetched from the API, and the response is displayed gradually to simulate a typing effect.
+ - Component-Based Architecture: The UI is split into reusable components such as ChatUI, ServiceToggle, and SessionList. Each component is designed to be modular and easy to extend.
 
 ## Running the Project
 ### Prerequisites
