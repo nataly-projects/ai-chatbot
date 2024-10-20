@@ -26,19 +26,18 @@ Before running the project, ensure you have the following tools installed:
  - npm: Comes with Node.js
 
 ### Instructions
-Clone the repository:
-
+ - Clone the repository:
 git clone https://github.com/your-username/ai-chatbot.git
-Navigate into the project directory:
 
+- Navigate into the project directory:
 cd ai-chatbot
-Install dependencies:
 
+ - Install dependencies:
 npm install
-Create an .env file in the root directory and add the API keys for OpenAI and Anthropic:
 
+ - Create an .env file in the root directory and add the API keys for OpenAI and Anthropic:
 VITE_OPENAI_API_KEY=your_openai_api_key
 VITE_ANTHROPIC_API_KEY=your_anthropic_api_key
-Start the development server:
 
+- Start the development server:
 npm run dev
