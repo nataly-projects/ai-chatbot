@@ -22,8 +22,8 @@ Component-Based Architecture: The UI is split into reusable components such as C
 ### Prerequisites
 Before running the project, ensure you have the following tools installed:
 
-Node.js
-npm: Comes with Node.js
+- Node.js
+ - npm: Comes with Node.js
 
 ### Instructions
 Clone the repository:
