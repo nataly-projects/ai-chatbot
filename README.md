@@ -18,6 +18,15 @@ The application is built with React and TypeScript, using Material UI for the us
  - Streaming Response Handling: For each user message, a streaming AI response is fetched from the API, and the response is displayed gradually to simulate a typing effect.
  - Component-Based Architecture: The UI is split into reusable components such as ChatUi, ServiceToggle, ChatSession, and SessionList. Each component is designed to be modular and easy to extend.
 
+## Libraries Used
+The following libraries and dependencies were used in this project:
+ - **react-router-dom**: Handles routing within the application, enabling multi-session chat navigation.
+ - **typescript**: A strongly typed language that builds on JavaScript, providing type safety and code clarity.
+ - **@mui/material (Material UI)**: A component library used for designing the user interface, ensuring a clean and consistent look with pre-built components.
+
+## Build Tool
+- **vite**: A fast build tool that provides a more efficient development experience than CRA (Create React App).
+  
 ## Running the Project
 ### Prerequisites
 Before running the project, ensure you have the following tools installed:
@@ -36,8 +45,8 @@ cd ai-chatbot
 npm install
 
  - Create an .env file in the root directory and add the API keys for OpenAI and Anthropic:
-VITE_OPENAI_API_KEY=your_openai_api_key
-VITE_ANTHROPIC_API_KEY=your_anthropic_api_key
+   - VITE_OPENAI_API_KEY=your_openai_api_key
+   - VITE_ANTHROPIC_API_KEY=your_anthropic_api_key
 
 - Start the development server:
 npm run dev
