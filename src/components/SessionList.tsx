@@ -9,14 +9,22 @@ const SessionList = () => {
   const navigate = useNavigate();
 
   useEffect(() => {
-    const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '[]');
-    setSessions(savedSessions);
+    const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '{}');
+    setSessions(Object.values(savedSessions));  // Converts the object to an array of values
 
     // Automatically create a new session if none exist
-    if (savedSessions.length === 0) {
+    if (Object.keys(savedSessions).length === 0) {
         handleNewSession(); 
       }
   }, []);
+
+  // Save the chat in the local storage
+  const saveSession = (session: ChatSessionType) => {
+    const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '{}');
+    savedSessions[session.id] = session; 
+    localStorage.setItem('chatSessions', JSON.stringify(savedSessions));
+  };
+
 
   const handleNewSession = () => {
     const newSession: ChatSessionType = {
@@ -27,14 +35,9 @@ const SessionList = () => {
       model: 'gpt-4o'
     };
 
-    const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '[]');
-
-    const updatedSessions = [...savedSessions, newSession];
-    setSessions(updatedSessions);
-    localStorage.setItem('chatSessions', JSON.stringify(updatedSessions));
-
+    saveSession(newSession); 
+    setSessions(prevSessions => [...prevSessions, newSession]);
     setSessionIdSelect(newSession.id);
-    // Navigate to the new session
     navigate(`/session/${newSession.id}`);
   };
 

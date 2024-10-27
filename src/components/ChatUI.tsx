@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { Box, List, TextField, Button, Typography } from '@mui/material';
 import Message from './Message';
 import ServiceToggle from './ServiceToggle';
@@ -12,12 +12,22 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
     const [isTyping, setIsTyping] = useState(false);
     const [aiService, setAiService] = useState(session?.aiService || 'OpenAI');
     const [model, setModel] = useState(session?.model || 'gpt-4o');
+    const messagesEndRef = useRef<HTMLDivElement>(null); 
 
     useEffect(() => {
         setMessages(session?.messages || []);
         setAiService(session?.aiService || 'OpenAI');
         setModel(session?.model || 'gpt-4o');
     }, [session, aiService, model]);
+
+    // Auto scroll
+    const scrollToBottom = () => {
+      messagesEndRef.current?.scrollIntoView({ behavior: "smooth" });
+    };
+
+    useEffect(() => {
+        scrollToBottom();
+    }, [messages]);
 
     const handleServiceChange = (newService: string) => {
         setAiService(newService);
@@ -27,11 +37,9 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
           session.aiService = newService;
     
           // Update the session in localStorage
-          const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '[]');
-          const updatedSessions = savedSessions.map((s: typeof session) =>
-            s.id === session.id ? { ...s, aiService: newService } : s
-          );
-          localStorage.setItem('chatSessions', JSON.stringify(updatedSessions));
+          const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '{}');
+          savedSessions[session.id] = { ...savedSessions[session.id], aiService: newService };
+          localStorage.setItem('chatSessions', JSON.stringify(savedSessions));
         }
       };
 
@@ -43,10 +51,8 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
     
           // Update session in localStorage
           const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '[]');
-          const updatedSessions = savedSessions.map((s: typeof session) =>
-            s.id === session.id ? { ...s, model: newModel } : s
-          );
-          localStorage.setItem('chatSessions', JSON.stringify(updatedSessions));
+          savedSessions[session.id] = { ...savedSessions[session.id], model: newModel };
+          localStorage.setItem('chatSessions', JSON.stringify(savedSessions));
         }
       };
 
@@ -113,6 +119,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
             content={msg.content} 
             />
           ))}
+          <div ref={messagesEndRef} />
         </List>
       </Box>
 
@@ -137,9 +144,14 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
           onChange={(e) => setUserInput(e.target.value)}
           onKeyPress={(e) => e.key === 'Enter' && handleSendMessage()}
         />
+        
         <Button 
-        sx={{borderRadius: '25px', marginLeft: '10px'}}
-        variant="contained" color="primary" onClick={handleSendMessage} >
+          sx={{ borderRadius: '25px', marginLeft: '10px' }}
+          variant="contained" 
+          color="primary" 
+          onClick={handleSendMessage} 
+          disabled={isTyping} 
+        >
           Send
         </Button>
       </Box>

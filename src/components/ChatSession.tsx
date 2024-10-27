@@ -9,22 +9,22 @@ const ChatSession: React.FC<{ }> = () => {
 
     useEffect(() => {
         // Load the session from localStorage
-        const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '[]');
-        const foundSession = savedSessions.find((s: ChatSessionType) => s.id === sessionId);
-        setSession(foundSession);
+        const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '{]');
+        const foundSession = savedSessions[sessionId || '']; 
+        setSession(foundSession || null); // Set session if found, else null
     }, [sessionId]);
 
     const handleUpdateMessages = (updatedMessages: { role: string; content: string }[]) => {
+        if (!session) return;
         // Update the session messages
         const updatedSession = { ...session, messages: updatedMessages } as ChatSessionType;
         setSession(updatedSession);
 
         // Save the updated session in localStorage
-        const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '[]');
-        const updatedSessions = savedSessions.map((s: ChatSessionType) =>
-            s.id === sessionId ? updatedSession : s
-        );
-        localStorage.setItem('chatSessions', JSON.stringify(updatedSessions));
+        const savedSessions = JSON.parse(localStorage.getItem('chatSessions') || '{}');
+        savedSessions[session.id] = updatedSession; 
+        localStorage.setItem('chatSessions', JSON.stringify(savedSessions));
+
     };
 
     return (

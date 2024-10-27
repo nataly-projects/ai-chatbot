@@ -20,7 +20,7 @@ const Message: React.FC<MessageProps> = React.memo(({ role, content }: { role: s
             }}
         
           >
-            <Typography>{content}</Typography>
+            <Typography style={{whiteSpace: 'pre-wrap'}}>{content}</Typography>
           </Paper>
         </Box>
     );
