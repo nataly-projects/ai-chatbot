@@ -7,7 +7,7 @@ export type ChatSessionType = {
 };
 
 export type MessageProps = {
-  role: 'user' | 'ai';
+  role: 'user' | 'assistant';
   content: string;
 };
 
@@ -27,4 +27,11 @@ export const modelOptions: Record<string, string[]> = {
   OpenAI: ['gpt-4o', 'gpt-4o-mini', 'gpt-4-turbo', 'gpt-3.5-turbo'],
   Anthropic: ['claude-3-5-sonnet-20240620', 'claude-3-opus-20240229', 'claude-3-sonnet-20240229', 'claude-3-haiku-20240307'],
 };
+
+export type serviceType= {
+  name: string;
+  url: string;
+  apiKey: string;
+  models: string[];
+}
 

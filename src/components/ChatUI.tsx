@@ -55,15 +55,17 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
         let aiResponse = ''; 
 
         // Add an empty AI message to the chat (which we'll update as we get the response)
-        setMessages((prevMessages) => [...prevMessages, { role: 'ai', content: '' }]);
+        setMessages((prevMessages) => [...prevMessages, { role: 'assistant', content: '' }]);
+        
+        const chatHistory = [...messages, { role: 'user', content: message }];
 
         // Fetch full response from the fetchAIResponse function
-        const fullResponse = await fetchAIResponse(message, aiService, model);
+        const fullResponse = await fetchAIResponse(chatHistory, aiService, model);
 
         //Typing effect logic
         for (let i = 0; i < fullResponse.length; i++) {
             aiResponse += fullResponse[i];
-        setMessages((prev) => [...prev.slice(0, -1), { role: 'ai', content: aiResponse }]); 
+        setMessages((prev) => [...prev.slice(0, -1), { role: 'assistant', content: aiResponse }]); 
 
         await new Promise((resolve) => setTimeout(resolve, 50)); // Simulate typing delay
         }
@@ -79,7 +81,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
             setMessages(updatedMessages);
             setUserInput('');
             const aiResponse = await handleAIResponse(userInput);
-            const updatedWithAI = [...updatedMessages, { role: 'ai', content: aiResponse }];
+            const updatedWithAI = [...updatedMessages, { role: 'assistant', content: aiResponse }];
             setMessages(updatedWithAI);
             onMessagesUpdate(updatedWithAI); 
         }
@@ -107,7 +109,7 @@ const ChatUI: React.FC<ChatUIProps> = ({ session, onMessagesUpdate }) => {
           {messages.map((msg, index) => (
             <Message 
             key={index} 
-            role={msg.role === 'user' || msg.role === 'ai' ? msg.role : 'ai'} // Default to 'ai' if invalid
+            role={msg.role === 'user' || msg.role === 'assistant' ? msg.role : 'assistant'} // Default to 'assistant' if invalid
             content={msg.content} 
             />
           ))}

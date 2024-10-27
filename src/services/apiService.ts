@@ -1,4 +1,4 @@
-export const fetchAIResponse = async (message: string, selectedService: string, serviceModel: string) => {
+export const fetchAIResponse = async ( chatHistory : { role: string; content: string }[], selectedService: string, serviceModel: string) => {
 
   const apiUrl = selectedService === 'OpenAI'
     ? '/api/openai/v1/chat/completions'
@@ -11,7 +11,7 @@ export const fetchAIResponse = async (message: string, selectedService: string, 
 
   const requestBody = {
       model: serviceModel,
-      messages: [{ role: 'user', content: message }],
+      messages: chatHistory,
       max_tokens: 150,
       stream: true
   }
